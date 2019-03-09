@@ -13,7 +13,7 @@ class RepositoriesController < ApplicationController
 
     body_hash = JSON.parse(@resp.body)
     if @resp.success?
-      @repos = body["response"]["venues"]
+      @repos = body["response"]
     else
       @error = body["meta"]["errorDetail"]
     end
