@@ -10,5 +10,16 @@ class RepositoriesController < ApplicationController
       req.params['client_secret'] = 0acf28d9c3267c7386ec2f5742f470ee598a2f8c
       req.params['query'] = 'tetris'
     end
+
+    body_hash = JSON.parse(@resp.body)
+    if @resp.success?
+      @repos = body["response"]["venues"]
+    else
+      @error = body["meta"]["errorDetail"]
+    end
+    rescue Faraday::ConnectionFailed
+      @error = "There was a timeout. Please try again."
+    end
+    render 'search'
   end
 end
